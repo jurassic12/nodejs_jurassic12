@@ -1,0 +1,15 @@
+{
+  "name": "sever_side_javascript",
+  "version": "1.0.0",
+  "description": "server side javascpit test",
+  "main": "hello.js",
+  "dependencies": {
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
