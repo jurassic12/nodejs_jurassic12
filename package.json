@@ -1,7 +1,7 @@
 {
-  "name": "sever_side_javascript",
+  "name": "nodejs",
   "version": "1.0.0",
-  "description": "server side javascpit test",
+  "description": "nodejs test",
   "main": "hello.js",
   "dependencies": {
     "underscore": "^1.8.3"
