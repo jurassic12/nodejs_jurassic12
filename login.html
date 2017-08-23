@@ -6,11 +6,11 @@
 <body>
   <h1>Login Page</h1>
   <hr/>
-  <form method="post" onkeypress="return event.keyCode != 13">
+  <form method="post" action='/auth/login' onkeypress="return event.keyCode != 13">
     <table>
       <tr>
-        <td><label>Id</label></td>
-        <td><input type="text" name="id"/></td>
+        <td><label>username</label></td>
+        <td><input type="text" name="username"/></td>
       </tr>
       <tr>
         <td><label>password</label></td>
