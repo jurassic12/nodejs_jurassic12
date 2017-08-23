@@ -8,7 +8,7 @@ const mysql=require('mysql');
 
 const client = mysql.createConnection({
   user : 'root',
-  password : '12801004',
+  password : 
   database : 'homepage1'
 });
 
