@@ -4,15 +4,17 @@ html
     meta(charset='utf-8')
   body
     h1
-      a(href='/topic') Server Side JavaScript
+      a(href='/topic') 방 명 록
     ul
       each topic in topics
         li
           a(href='/topic/'+topic.id)= topic.title
     artcle
-      h2='Do you want to delete :'+topic.title
+      h2='글을 삭제 하시겠습니까?'+topic.title
       form(action='/topic/'+topic.id+'/delete' method='post')
         p
           input(type='submit' value='YES')
       a(href='/topic/'+topic.id) NO
-    
+      ul
+       li
+         a(href='/auth/logout') LOGOUT(나가기)

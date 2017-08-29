@@ -4,7 +4,7 @@ html
     meta(charset='utf-8')
   body
     h1
-      a(href='/topic') Server Side JavaScript
+      a(href='/topic') 방 명 록
     ul
       each topic in topics
         li
@@ -21,4 +21,6 @@ html
             input(type='submit')
         ul
          li
-           a(href='/topic/add') add
+           a(href='/topic/add') 글 작성
+         li
+           a(href='/auth/logout') LOGOUT(나가기)

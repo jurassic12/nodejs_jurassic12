@@ -35,6 +35,7 @@ app.use(session({
     })
 }));
 
+app.use(express.static('public'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser());
@@ -50,6 +51,14 @@ app.locals.pretty = true;
 http.createServer(app).listen(52273,()=>{
     console.log(`Server running at http://127.0.0,1:52273`);
 });
+
+app.get('/',(request,response) => {
+  fs.readFile('index.html',(error,data) => {
+    response.writeHead('200',{ 'Content-Type':'text/html;charset=utf8'});
+    response.end(data);
+  });
+});
+
 
 
 app.get('/auth/login',(request,response) =>{
@@ -108,16 +117,17 @@ app.post('/auth/login',
 
 app.get('/welcome', function(req, res){
   if(req.user && req.user.displayName) {
-    res.send(`
-      <h1>Hello, ${req.user.displayName}</h1>
-      <a href="/auth/logout">logout</a>
-    `);
+     res.redirect('/topic');
+    // res.send(`
+    //   <h1>Hello, ${req.user.displayName}</h1>
+    //   <a href="/auth/logout">logout</a>
+    // `);
   } else {
     res.send(`
       <h1>Welcome</h1>
       <ul>
-        <li><a href="/auth/login">Login</a></li>
-        <li><a href="/auth/register">Register</a></li>
+        <li><a href="/auth/login"><h2>로그인</h2></a></li>
+        <li><a href="/auth/register"><h2>회원가입</h2></a></li>
       </ul>
     `);
   }
@@ -127,7 +137,7 @@ app.get('/welcome', function(req, res){
 app.get('/auth/logout', function(req, res){
    req.logout();
    req.session.save(function(){
-     res.redirect('/welcome');
+     res.redirect('/');
    });
  });
 
@@ -247,5 +257,19 @@ app.get('/topic/:id',(req,res) =>{
      client.query(sql,[id],(err,topic,fields) =>{
       res.render('view', {topics:topics, topic:topic[0]});
     });
+  });
+});
+
+app.get('/movie',(request,response) => {
+  fs.readFile('movie.html',(error,data) => {
+    response.writeHead('200',{ 'Content-Type':'text/html;charset=utf8'});
+    response.end(data);
+  });
+});
+
+app.get('/music',(request,response) => {
+  fs.readFile('CHRISTMAS.ogg',(error,data) => {
+    response.writeHead('200',{ 'Content-Type':'audio/ogg'});
+    response.end(data);
   });
 });

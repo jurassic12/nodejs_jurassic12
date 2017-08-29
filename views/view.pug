@@ -4,7 +4,7 @@ html
     meta(charset='utf-8')
   body
     h1
-      a(href='/topic') Server Side JavaScript
+      a(href='/topic') 방 명 록
     ul
       each topic in topics
         li
@@ -16,12 +16,16 @@ html
         div= 'by '+topic.author
       else
         h2 Welcome
-        | This is server side javascript tutorial.
+        | 글을 남겨 주세요
       ul
          li
-           a(href='/topic/add') add
+           a(href='/topic/add') 글 추가
+
+
          if topic
           li
-            a(href='/topic/'+topic.id+'/edit') edit
+            a(href='/topic/'+topic.id+'/edit') 글 수정
           li
-            a(href='/topic/'+topic.id+'/delete') delete     
+            a(href='/topic/'+topic.id+'/delete') 글 삭제
+          li
+            a(href='/auth/logout') LOGOUT(나가기)
