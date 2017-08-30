@@ -16,7 +16,7 @@ var app=express();
 
 var client = mysql.createConnection({
   user : 'root',
-  password :
+  password : '12801004',
   database : 'homepage1'
 });
 
@@ -29,7 +29,7 @@ app.use(session({
       host: 'localhost',
       port: 3306,
       user: 'root',
-      password: 
+      password: '12801004',
       database: 'homepage1'
 
     })
@@ -124,11 +124,14 @@ app.get('/welcome', function(req, res){
     // `);
   } else {
     res.send(`
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <div align=center>
       <h1>Welcome</h1>
-      <ul>
-        <li><a href="/auth/login"><h2>로그인</h2></a></li>
-        <li><a href="/auth/register"><h2>회원가입</h2></a></li>
-      </ul>
+
+        <p><a href="/auth/login"><h2>로그인</h2></a></p>
+        <p><a href="/auth/register"><h2>회원가입</h2></a></p>
+
+     </div>
     `);
   }
 });

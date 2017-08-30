@@ -2,10 +2,21 @@ doctype html
 html
   head
     meta(charset='utf-8')
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    style.
+      ul.a {
+      display: table;
+      margin-left: auto;
+      margin-right: auto;
+      }
+      body {
+      background-image:url('1.png');
+      }
   body
+   div(align="center")
     h1
       a(href='/topic') 방 명 록
-    ul
+    ul.a
       each topic in topics
         li
           a(href='/topic/'+topic.id)= topic.title
@@ -17,7 +28,7 @@ html
       else
         h2 Welcome
         | 글을 남겨 주세요
-      ul
+      ul.a
          li
            a(href='/topic/add') 글 추가
 

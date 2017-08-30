@@ -2,13 +2,21 @@
 <html>
 <head>
   <title>join Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
 
+      text-align : center ;
+    }
+    
+  </style>
 </head>
 <body>
+ <div id="wrapper">
   <h1>join Page</h1>
   <hr/>
   <form method="post" action='/auth/register' name="myForm" onkeypress="return event.keyCode != 13">
-    <table>
+    <table align=center>
       <tr>
         <td><label>username</label></td>
         <td><input type="text" name="username"/></td>
@@ -28,6 +36,6 @@
     </table><br/>
     <input type="submit" value="전송"/>
   </form>
-
+ </div>
 </body>
 </html>
