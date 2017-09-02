@@ -10,13 +10,16 @@ var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
 var bkfd2Password = require("pbkdf2-password");
 var hasher = bkfd2Password();
+var app = require('express')();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
 
-var app=express();
+//var app=express();
 
 var client = mysql.createConnection({
   user : 'root',
-  password :
+  password : 
   database : 'homepage1'
 });
 
@@ -48,9 +51,24 @@ app.set('views', './views');
 app.locals.pretty = true;
 
 
-http.createServer(app).listen(52273,()=>{
+server.listen(52273,()=>{
     console.log(`Server running at http://127.0.0,1:52273`);
 });
+
+app.get('/chat',(request,response) => {
+  fs.readFile('chatting.html',(error,data) => {
+    response.writeHead('200',{ 'Content-Type':'text/html;charset=utf8'});
+    response.end(data);
+  });
+});
+
+
+io.on('connection', function(socket) {
+  socket.on('message', function(data) {
+    io.sockets.emit('message',data);
+  });
+});
+
 
 app.get('/',(request,response) => {
   fs.readFile('index.html',(error,data) => {
