@@ -13,13 +13,13 @@ var hasher = bkfd2Password();
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-
+var url = require ('url') ;
 
 //var app=express();
 
 var client = mysql.createConnection({
   user : 'root',
-  password : 
+  password :
   database : 'homepage1'
 });
 
@@ -289,8 +289,8 @@ app.get('/movie',(request,response) => {
 });
 
 app.get('/music',(request,response) => {
-  fs.readFile('CHRISTMAS.ogg',(error,data) => {
-    response.writeHead('200',{ 'Content-Type':'audio/ogg'});
+  fs.readFile('music.html',(error,data) => {
+    response.writeHead('200',{ 'Content-Type':'text/html;charset=utf8'});
     response.end(data);
   });
 });

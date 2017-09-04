@@ -2,13 +2,73 @@
 <html>
   <head>
     <title>music</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+      #playlist,audio{background:#666;width:400px;padding:20px;}
+      .active a{color:#5DB0E6;text-decoration:none;}
+      li a{color:#eeeedd;background:#333;padding:5px;display:block;}
+      li a:hover{text-decoration:none;}
+
+
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"> </script>
+    <script type='text/javascript' src='http://code.jquery.com/jquery-1.7.js'></script>
+    <script>
+      $(document).ready(function () {
+              init();
+              function init(){
+                      var current = 0;
+                      var audio = $('#audio');
+                      var playlist = $('#playlist');
+                      var tracks = playlist.find('li a');
+                      var len = tracks.length - 1;
+                      audio[0].volume = .50;
+                      audio[0].play();
+                      playlist.on('click','a', function(e){
+                              e.preventDefault();
+                              link = $(this);
+                              current = link.parent().index();
+                              run(link, audio[0]);
+                      });
+                      audio[0].addEventListener('ended',function(e){
+                              current++;
+                              if(current > len){
+                                      current = 0;
+                                      link = playlist.find('a')[0];
+                              }else{
+                                      link = playlist.find('a')[current];
+                              }
+                              run($(link),audio[0]);
+                      });
+              }
+              function run(link, player){
+                              player.src = link.attr('href');
+                              par = link.parent();
+                              par.addClass('active').siblings().removeClass('active');
+                              player.load();
+                              player.play();
+              }
+      });
+    </script>
+
+
   </head>
   <body>
+    <center>
     <h1>MUSIC PLAYER</h1>
-    <!-- <audio  src="CHRISTMAS.ogg"  autoPlay controls ></audio> -->
+    <audio id="audio" preload="auto" tabindex="0" controls="" type="audio/mpeg" >
+      <source type="audio/mp3" src="FirstSnow.mp3">
+            Sorry, your browser does not support HTML5 audio.
 
-    <!-- <embed src="CHRISTMAS.mp3" width="300" height="200" border="0" ></embed>  -->
-     <audio src="UKISS.ogg" controls" ></audio>
-    
+    </audio>
+       <ul id="playlist">
+         <li class="active"><a href="FirstSnow.mp3">First Snow</a></li>
+         <li><a href="Forest_gump.mp3">Forest Gump OST </a></li>
+         <li><a href="http://www.archive.org/download/CanonInD_261/CanoninD.mp3">Canon in D Pachabel</a></li>
+         <li><a href="StayWithMe.mp3">Stay With Me</a></li>
+         <li><a href="You_are_so_beautiful.mp3">You Are So Beautiful</a></li>
+       </ul>
+    </center>
   </body>
 </html>
