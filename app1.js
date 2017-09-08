@@ -14,6 +14,8 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var url = require ('url') ;
+var ejs = require('ejs');
+//var socketio=require('socket.io');
 
 //var app=express();
 
@@ -50,10 +52,13 @@ app.set('view engine', 'pug');
 app.set('views', './views');
 app.locals.pretty = true;
 
-
+//var server=http.createServer(app);
 server.listen(52273,()=>{
     console.log(`Server running at http://127.0.0,1:52273`);
 });
+
+//var io=socketio.listen(server);
+
 
 app.get('/chat',(request,response) => {
   fs.readFile('chatting.html',(error,data) => {
@@ -292,5 +297,44 @@ app.get('/music',(request,response) => {
   fs.readFile('music.html',(error,data) => {
     response.writeHead('200',{ 'Content-Type':'text/html;charset=utf8'});
     response.end(data);
+  });
+});
+
+
+app.get('/lobby',(request,response)=> {
+  fs.readFile('lobby.html',(error,data)=> {
+    response.send(data.toString());
+  });
+});
+
+app.get('/canvas/:room',(request,response)=> {
+  fs.readFile('canvas.html','utf8',(error,data)=> {
+    response.send(ejs.render(data,{
+      room:request.params.room
+    }));
+  });
+});
+
+app.get('/room',(request,response)=>{
+  var rooms=Object.keys(io.sockets.adapter.rooms).filter(function(item){
+    return item.indexOf('/lobby') < 0;
+  })
+  response.send(rooms);
+});
+
+io.on('connection',function(socket){
+  var roomId="";
+
+  socket.on('join',function(data){
+    socket.join(data);
+    roomId=data;
+  });
+
+  socket.on('draw',function(data){
+    io.sockets.in(roomId).emit('line',data);
+  });
+
+  socket.on('create_room',function(data){
+    io.sockets.emit('create_room',data.toString());
   });
 });
